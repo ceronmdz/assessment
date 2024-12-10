@@ -62,5 +62,5 @@ jobs:
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
           service: nginx-lagario-service
-          cluster: DevCluster
+          cluster: Lagario
           wait-for-service-stability: true
