@@ -1,7 +1,5 @@
-FROM node:16.20.1
-WORKDIR /app
-COPY package.json ./
-RUN npm install
-COPY . .
-EXPOSE 5000
-CMD ["npm","run","start"]
+# Base Image 
+FROM nginx:alpine 
+COPY index.html /usr/share/nginx/html/
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
