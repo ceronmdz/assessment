@@ -8,6 +8,7 @@ on:
 env:
   AWS_REGION: us-west-1                  
   ECR_REPOSITORY: service   
+  TASK_DEFINITION: nginx-lagario-task-definition
 permissions:
       id-token: write   # This is required for requesting the JWT
       contents: read  
@@ -30,6 +31,9 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
         with:
           mask-password: 'true'
+      - name: Download task definition
+        run: |
+          aws ecs describe-task-definition --task-definition ${{ env.TASK_DEFINITION }} --query taskDefinition > taskdefinition.json
 
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
@@ -50,12 +54,12 @@ jobs:
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: nginx-lagario-task-definition.json 
-          container-name: nodejs-app
+          container-name: nginx-lagario
           image: ${{ steps.build-image.outputs.image }}    
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: nodejs-app-service
+          service: nginx-lagario-service
           cluster: DevCluster
           wait-for-service-stability: true
