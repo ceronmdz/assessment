@@ -3,8 +3,8 @@ name: CICD
 on:
 #  push:
 #    branches: [ main ]
-  pull_request_review:
-    types: [submitted]
+  pull_request:
+    branches: [Production]
 
 env:
   AWS_REGION: us-west-2
@@ -16,7 +16,6 @@ permissions:
 
 jobs:
   build-and-deploy:
-    if: ${{ github.event.pull_request.base.ref == 'Production' }}
     environment: test
     runs-on: [ ubuntu-latest ]
     steps:
