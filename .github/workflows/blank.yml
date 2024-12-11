@@ -62,5 +62,5 @@ jobs:
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
           service: nginx-test-service
-          cluster: nginx
+          cluster: nginx-test
           wait-for-service-stability: true
