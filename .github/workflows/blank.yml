@@ -1,8 +1,10 @@
 name: CICD
 
 on:
-  push:
-    branches: [ main ]
+#  push:
+#    branches: [ main ]
+  pull_request_review:
+    types: [submitted]
 
 env:
   AWS_REGION: us-west-2
@@ -14,6 +16,7 @@ permissions:
 
 jobs:
   build-and-deploy:
+    if: github.event.review.state == 'approved'
     #environment: test
     runs-on: [ ubuntu-latest ]
     steps:
