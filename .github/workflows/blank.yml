@@ -63,6 +63,6 @@ jobs:
           service: nginx-test-service
           cluster: nginx-test
           wait-for-service-stability: true
-          codedeploy-appspec: appspec.yaml
+          codedeploy-appspec: appspec.json
           codedeploy-application: AppECS-nginx-test-nginx-test-service
           codedeploy-deployment-group: DgpECS-nginx-test-nginx-test-service
